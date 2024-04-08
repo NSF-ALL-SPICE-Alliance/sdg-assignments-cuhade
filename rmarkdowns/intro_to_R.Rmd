@@ -37,6 +37,10 @@ One of the most helpful tools to an R programmer are R packages! In a nutshell, 
 library()
 ```
 
+```{r}
+library()
+```
+
 A new window should have opened up with a list of packages and a short description! 
 
 *Note*
@@ -56,6 +60,9 @@ We used the `library()` function within a code chunk (discussed last video). We 
 Let's say you want to start using the tidyverse package to make cool visualizations, but haven't installed it yet. **Run the following code in the console** to install it: install.packages("tidyverse") 
 
 Hint: The *console with the code you need to write* is pictured below
+```{r}
+install.packages("tidyverse")
+```
 
 
 <img src="`r here::here('images/console.png')`" /> 
@@ -67,6 +74,9 @@ Let's double check to see if it installed correctly using the following code:
 ```{r}
 system.file(package = "tidyverse") # input the name of the package in quotes
 ```
+```{r}
+system.file(package = "tidyverse")
+```
 
 If you got a response giving you a file path - you're all set! You successfully installed your first package! 
 
@@ -77,6 +87,11 @@ To be able to use the package and its functions in R Studio, we need to load the
 ```{r, message=FALSE}
 library(tidyverse) # put the name of the package/library in the parenthesis 
 ```
+
+```{r}
+library(tidyverse)
+```
+
 Awesome! Now we can access the many cool things that the tidyverse package can do for us. We'll start using this package and its functions as we go along.
 
 [Check out the tidyverse package documentation](https://www.tidyverse.org/)
@@ -98,6 +113,7 @@ my_name <- "Victoria DelaCruz" # character strings are stored within quotations
 my_name # run the name of your variable to see the output
 ```
 
+
 2. my_age
 ```{r}
 my_age = 20 # numeric values do not need any quotations
@@ -105,13 +121,20 @@ my_age # run the name of your variable to see the output
 my_age + 5 # how old will you be in 5 years?
 ```
 
+
 #### <span style="color: red;">Challenge 1</span>
 Create a my_name variable with your name assigned to the variable instead of "Victoria DelaCruz". Then, create a my_age variable with your age. 
 
-```{r}
-my_name <- "Cade"
 
-my_age = 20
+```{r}
+## Challenge 1
+
+my_name <- "Cade Garcia"
+my_name
+
+my_age <- 20
+my_age
+my_age + 5
 ```
 
 #### Different Types of Data
@@ -157,6 +180,11 @@ If you want to remove or delete a variable, you can run the following code:
 
 ```{r}
 rm(my_name) # input the variable name in the parenthesis
+```
+
+```{r}
+rm(my_name)
+my_name 
 ```
 
 #### Variables Best Practices
@@ -293,6 +321,13 @@ sdr_data %>%
   select(goal_3_score, goal_4_score)
 ```
 
+```{r}
+## Challenge 2
+SDR_goals <- sdr_data %>% 
+  select(goal_5_score, goal_7_score)
+SDR_goals
+```
+
 You'll notice we used the pipe operator ` %>% ` after the name of the dataframe, and then listed the columns we were interested in the select() function
 
 What if we want to subset specific rows? We can do this by using the filter function. 
@@ -319,6 +354,15 @@ Notes:
 
 #### <span style="color: red;">Challenge 3</span>
 Using the `filter()` function, filter for another region other than Oceania. Assign it to a variable named `new_region`. 
+
+```{r}
+## Challenge 3 
+
+new_region <- sdr_data %>% 
+  filter(regions_used_for_the_sdr == "OECD")
+new_region
+```
+
 
 **Important**
 
