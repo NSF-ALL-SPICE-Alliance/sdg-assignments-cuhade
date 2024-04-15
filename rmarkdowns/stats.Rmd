@@ -220,3 +220,23 @@ ggplot(sdr_data, aes(x = goal_12_score,
       - are there any points that don't follow the trend (outliers)
         
         - which country(s) are outliers?
+        
+```{r, warning=FALSE, message=FALSE}
+## Challenge 1
+
+library(plotly)
+
+chal_1 <- ggplot(sdr_data, aes(x = goal_12_score, 
+                     y = goal_3_score,
+                     label = country)) +
+  geom_point() +
+  geom_smooth() +
+  stat_cor() +
+  theme_update() 
+
+ggplotly(chal_1)
+```
+
+At first glance, we notice that there is an obvious negative correlation between "responsible consumption and production" and "good health and well-being". The trend seems to highlight that less sustainable consumption and production patterns creates a healthier well-being. 
+An odd conclusion for sure but, an interesting one none-the-less. The most notable outliers in this trend include South Sudan, Chad, Somalia, etc. This is interesting because they are countries on the continent of Africa which would provide guidance in discovering a more accurate conclusion as to why these 2 SDG goals are negatively correlated. 
+
