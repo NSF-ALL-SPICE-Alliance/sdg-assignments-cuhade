@@ -335,6 +335,18 @@ Edit this code chunk `k2 <- kmeans(sdr_data_imputed, centers = 2)` under the sil
 
 - Then, run the code chunk `fviz_cluster(k2, data = sdr_data_imputed) + theme_minimal()` to see the new visualization with the increased number of clusters
   
+  
+```{r}
+## Challenge 1
+
+k2 <- kmeans(sdr_data_imputed, centers = 3)
+
+sl_k2 <- silhouette(k2$cluster, dist(sdr_data_imputed))
+
+final_sl_k2 <- fviz_cluster(sl_k2, data = sdr_data_imputed) + theme_minimal()
+final_sl_k2
+```
+
 #### <span style="color: red;">Challenge 2</span>
 
 Edit this code chunk `rf_matmort <- randomForest(normalized_score_sdg3_matmort ~ ., data = sdr_data_imputed, importance = TRUE)` to predict a different indicator score (any indicator other than normalized_score_sdg3_matmort)
@@ -345,6 +357,34 @@ Edit this code chunk `rf_matmort <- randomForest(normalized_score_sdg3_matmort ~
     
     - *Hint* make sure to continue replacing rf_matmort with the new name you assign your random forest model
 
+```{r}
+## Challenge 2
+
+rf_matmort2 <- randomForest(normalized_score_sdg3_births ~ .,
+                             data = sdr_data_imputed,
+                             importance = TRUE)
+
+importance_df_2 <- as.data.frame(rf_matmort2$importance)
+
+importance_df_top_10_2 <- importance_df_2 %>%
+  rownames_to_column(var = "variable") %>%
+  slice_max(n = 10, order_by = `%IncMSE`)
+
+#-- Plotting SDG 2
+ggplot(importance_df_top_10_2, aes(x = `%IncMSE`, y = reorder(variable, `%IncMSE`))) +
+  geom_bar(stat = "identity", fill = "steelblue", color = "black") +
+  theme_minimal() +
+  labs(title = "Most Important Variables in Predicting Births",
+       subtitle = "Top 10",
+       y = "SDG Indicator",
+       x = "Feature Importance (% Increase in Mean Squared Error)")
+
+#-- Prediction graph 1                    **>change this one<**
+pdp::partial(rf_matmort2, pred.var = "normalized_score_sdg3_uhc", plot = TRUE)
+#-- Prediction graph 2
+pdp::partial(rf_matmort2, pred.var = "normalized_score_sdg6_sanita", plot = TRUE)
+
+```
 
 
 
